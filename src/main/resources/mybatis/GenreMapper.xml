@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.co.kr.mapper.GenreMapper">
+
+	<insert id="genreItemCreate" parameterType="com.co.kr.domain.ItemGenreDomain">
+		insert into booklib.genre (genre_id, genre_name)
+		values (#{genreId}, #{genreName})
+	</insert>
+	
+	<!-- select문 생성 할 때 -->
+	<select id="genreItems" resultType="com.co.kr.domain.ItemGenreDomain">
+		select genre_id, genre_name
+		from booklib.genre
+		order by genre_id asc
+	</select>
+	
+	<!-- selected 된 값 체크 할 때 -->
+	<select id="genreItemOne" resultType="com.co.kr.domain.ItemGenreDomain" parameterType="map">
+		select genre_id, genre_name
+		from booklib.genre
+		where genre_id = #{genreId}
+	</select>
+	
+	<update id="genreItemUpdate" parameterType="com.co.kr.domain.ItemGenreDomain">
+		UPDATE booklib.genre SET
+				genre_id=#{genreId},
+				genre_name=#{genreName}
+	    WHERE genre_id=#{genreId}
+	</update>
+	
+	<delete id="genreItemRemove" parameterType="hashMap">
+	   DELETE FROM booklib.genre WHERE genre_id=#{genreId}
+	</delete>
+	
+</mapper>

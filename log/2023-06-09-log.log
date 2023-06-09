@@ -1,0 +1,30 @@
+2023-06-09 22:03:10:349 [http-nio-8095-exec-2] INFO  c.co.kr.service.ItemFileServiceImpl - 파일 업로드 완료.
+2023-06-09 22:03:10:381 [http-nio-8095-exec-2] INFO  c.c.kr.controller.bookItemController - 도서 번호 10 도서 수정 완료
+2023-06-09 22:03:10:394 [http-nio-8095-exec-2] INFO  c.c.kr.controller.bookItemController - 도서 번호 10 도서 정보 상세 조회
+2023-06-09 22:25:30:670 [http-nio-8095-exec-4] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:25:30:676 [http-nio-8095-exec-4] INFO  com.co.kr.controller.UserController - 메인 페이지 도서 리스트 8개 불러옴
+2023-06-09 22:25:32:462 [http-nio-8095-exec-4] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:25:32:468 [http-nio-8095-exec-4] INFO  com.co.kr.service.UserServiceImpl - 관리자가 전체 회원 목록을 데이터베이스에서 불러옴
+2023-06-09 22:25:32:472 [http-nio-8095-exec-4] INFO  com.co.kr.controller.AdminController - 관리자 회원 조회 페이지 접속
+2023-06-09 22:25:34:38 [http-nio-8095-exec-6] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:25:34:44 [http-nio-8095-exec-6] INFO  com.co.kr.service.UserServiceImpl - 관리자가 회원 번호 1 정보 데이터베이스에서 불러옴
+2023-06-09 22:25:34:47 [http-nio-8095-exec-6] INFO  com.co.kr.controller.AdminController - 관리자 회원 수정 페이지 접속
+2023-06-09 22:28:45:866 [http-nio-8095-exec-1] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:28:45:869 [http-nio-8095-exec-1] INFO  com.co.kr.service.UserServiceImpl - 아이디 var의 회원 정보를 데이터베이스에서 불러옴
+2023-06-09 22:28:45:873 [http-nio-8095-exec-1] INFO  com.co.kr.controller.UserController - 아이디 var 회원 정보 수정 페이지 접속
+2023-06-09 22:32:47:530 [http-nio-8095-exec-4] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:32:47:539 [http-nio-8095-exec-4] INFO  c.c.kr.controller.bookItemController - 도서 정보 생성 페이지 접속
+2023-06-09 22:32:50:213 [http-nio-8095-exec-2] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:32:50:223 [http-nio-8095-exec-2] INFO  com.co.kr.controller.AdminController - 관리자 도서 정보 리스트 페이지, 11개 도서 정보 조회
+2023-06-09 22:32:52:559 [http-nio-8095-exec-8] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:32:52:562 [http-nio-8095-exec-8] INFO  com.co.kr.controller.AdminController - 관리자 도서 수정 페이지 접속, 1번 도서 정보 수정
+2023-06-09 22:33:14:639 [http-nio-8095-exec-3] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:33:14:641 [http-nio-8095-exec-3] INFO  com.co.kr.controller.AdminController - 관리자 도서 수정 페이지 접속, 1번 도서 정보 수정
+2023-06-09 22:36:28:459 [http-nio-8095-exec-1] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:36:28:460 [http-nio-8095-exec-1] INFO  com.co.kr.service.UserServiceImpl - 관리자가 전체 회원 목록을 데이터베이스에서 불러옴
+2023-06-09 22:36:28:465 [http-nio-8095-exec-1] INFO  com.co.kr.controller.AdminController - 관리자 회원 조회 페이지 접속
+2023-06-09 22:36:29:903 [http-nio-8095-exec-9] INFO  com.co.kr.util.LoginInterceptor - var 접속 정보 유지 중
+2023-06-09 22:36:29:904 [http-nio-8095-exec-9] INFO  com.co.kr.controller.AdminController - 관리자 회원 생성 페이지 접속
+2023-06-09 22:55:41:292 [restartedMain] INFO  c.co.kr.SpringLibraryInfoApplication - Starting SpringLibraryInfoApplication using Java 17.0.6 on DESKTOP-MQ3DUUA with PID 26372 (C:\Users\CHA\Documents\workspace-spring-tool-suite-4-4.17.2.RELEASE\springLibraryInfo\target\classes started by CHA in C:\Users\CHA\Documents\workspace-spring-tool-suite-4-4.17.2.RELEASE\springLibraryInfo)
+2023-06-09 22:55:41:293 [restartedMain] INFO  c.co.kr.SpringLibraryInfoApplication - No active profile set, falling back to 1 default profile: "default"
+2023-06-09 22:55:42:229 [restartedMain] INFO  c.co.kr.SpringLibraryInfoApplication - Started SpringLibraryInfoApplication in 1.045 seconds (JVM running for 9702.188)

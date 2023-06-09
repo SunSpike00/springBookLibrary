@@ -1,0 +1,37 @@
+<section class="py-5">
+	<div class="container px-4 px-lg-5 mt-5">
+		<div id="page" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+			<div class="col mb-5" th:each="book : ${bookList}" th:if="${!#lists.isEmpty(bookList)}">
+				<div class="card h-100">
+					<img style="width: auto; height: auto; max-width: 300px; max-height: 450px; object-fit: contain; overflow: hidden;"
+					th:src="@{${book.bkNewFileName}}" alt="도서 표지" />
+					<!-- Product details-->
+					<div class="card-body p-6">
+						<div class="text-center">
+							<!-- Product name-->
+							<h5 class="fw-bolder" th:text="${book.bkTitle}"></h5>
+							<!-- Product price-->
+							<div th:text="${book.bkPrice} + '원'"></div>
+							<div>
+							<!-- 장르 태그-->
+							<a class="badge bg-secondary text-decoration-none link-light"
+							th:text="${book.genreName}"></a>
+							<!-- 매장 태그-->
+							<a class="badge bg-secondary text-decoration-none link-light"
+							th:text="${book.shopName}"></a>
+							</div>
+						</div>
+					</div>
+
+	                <!-- Product actions-->
+					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+						<div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/bookInfo((bkId = ${book.bkId}))}">View options</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(bookList)}">
+			<h3 style="text-align: center;">검색된 내용이 없습니다.</h3>
+		</div>
+	</div>
+</section>

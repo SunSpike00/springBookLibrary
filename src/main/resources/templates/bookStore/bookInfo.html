@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+<style>
+.carousel-indicators [data-bs-target] {
+  box-sizing: content-box;
+  flex: 0 1 auto;
+  width: 10px;
+  height: 10px;
+  border-radius:50%;
+  padding: 0;
+  margin-right: 3px;
+  margin-left: 3px;
+  text-indent: -999px;
+  cursor: pointer;
+  background-color: #808080;
+  background-clip: padding-box;
+  border: 0;
+  border-radius:5px;
+  opacity: .8;
+  transition: opacity .6s ease;
+}
+
+.carousel-indicators .active{
+  width: 40px;
+  height: 10px;
+  background-color: #35c5f0;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 50px;
+  width: 50px;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 50px;
+  color: #35c5f0;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 50px;
+  color: #35c5f0;
+}
+</style>
+</th:block>
+<th:block layout:fragment="script">
+	<script type="text/javascript">
+	    $(function(){
+	      // 이미지 슬라이드 컨트롤를 사용하기 위해서는 carousel를 실행해야한다.
+	      $('.carousel').carousel({
+	        // 슬리아딩 자동 순환 지연 시간
+	        // false면 자동 순환하지 않는다.
+	        interval: 4000,
+	        // hover를 설정하면 마우스를 가져대면 자동 순환이 멈춘다.
+	        pause: "hover",
+	        // 순환 설정, true면 1 -> 2가면 다시 1로 돌아가서 반복
+	        wrap: true,
+		  });
+		});
+	</script>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="container">
+   		<th:block th:include="bookStore/bookDetail.html"></th:block>
+    </div>
+</div>
+</html>

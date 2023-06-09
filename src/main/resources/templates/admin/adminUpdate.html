@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="script">
+	<script type="text/javascript">
+		history.pushState(null, null, location.href);
+		window.onpopstate = function() {
+			history.go(1);
+		}
+	</script>
+</th:block>
+<div layout:fragment="content">
+	<div class="row justify-content-center">
+		<div class="col-lg-5">
+			<div class="card shadow-lg border-0 rounded-lg mt-5">
+				<div class="card-header">
+					<h3 class="text-center font-weight-light my-4">User
+						Information Admin Update</h3>
+				</div>
+				<div class="card-body">
+					<form id="registerForm" role="form" action="adminUpdate" method="post">
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbSeq" id="mbSeq" type="text"
+								placeholder="seq" th:value=${user.mbSeq} th:readonly="true"/>
+							<label for="mbSeq">Seq</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbId" id="mbId" type="text"
+								placeholder="Id" th:value=${user.mbId} th:readonly="true"/>
+							<label for="mbId">Id</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbPw" id="mbPw" type="text"
+								placeholder="Create a password" th:value=${user.mbPw} required/> <label for="pw">Password</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbLevel" id="mbLevel" type="text"
+								placeholder="Id" th:value=${user.mbLevel} required/>
+							<label for="mbLevel">Level</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbIp" id="mbIp" type="text"
+								placeholder="Ip" th:value=${user.mbIp} th:readonly="true" />
+							<label for="mbIp">Ip</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbUse" id="mbUse" type="text"
+								placeholder="Use" th:value=${user.mbUse} required/>
+							<label for="mbUse">Use</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbCreateAt" id="mbCreateAt" type="text"
+								placeholder="CreateAt" th:value=${user.mbCreateAt} th:readonly="true"/>
+							<label for="mbCreateAt">CreateAt</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="mbUpdateAt" id="mbUpdateAt" type="text"
+								placeholder="UpdateAt" th:value=${user.mbUpdateAt} th:readonly="true"/>
+							<label for="mbUpdateAt">UpdateAt</label>
+						</div>
+						<div class="d-flex align-items-center">
+							<button class="btn btn-custom" type="submit" id="submit">Update</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

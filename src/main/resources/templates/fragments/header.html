@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Navigation-->
+<nav th:fragment="headerFragment"
+	class="sb-topnav navbar navbar-expand navbar-dark bg-grey">
+	<!-- Navbar Brand-->
+	<th:block th:if="${session.id} != null">
+	<a class="navbar-brand ps-3" th:href="@{bkStore}">Book Store</a>
+	</th:block>
+	<th:block th:unless="${session.id} != null">
+	<a class="navbar-brand ps-3" th:href="@{/}">Book Store</a>
+	</th:block>
+	
+	<!-- Sidebar Toggle-->
+	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+		id="sidebarToggle" href="#!">
+		<i class="fas fa-bars"></i>
+	</button>
+	
+	<!-- Navbar Search-->
+
+	<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
+		role="form" action="bookSearch" method="get">
+		<th:block th:if="${session.id != null}">
+		<div class="input-group">
+			<input class="form-control" id="keyWord" name="keyWord" type="text" placeholder="Search for..."
+				aria-label="Search for..." aria-describedby="btnNavbarSearch"/>
+			<button class="btn btn-primary" type="submit" id="btnNavbarSearch"><i class="fas fa-search"></i></button>
+		</div>
+		</th:block>
+	</form>
+
+	<!-- Navbar-->
+	<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+			id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+			aria-expanded="false">
+			<i class="fas fa-user fa-fw"></i></a>
+			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+				<th:block th:if="${session.id} != null">
+					<a class="dropdown-item" th:href="@{myLibrary}">내 서재</a>
+					<a class="dropdown-item" th:href="@{setting}">마이페이지</a>
+                	<a class="dropdown-item" th:href="@{logout}">로그아웃</a>
+                </th:block>
+				<th:block th:unless="${session.id} != null">
+					<a class="dropdown-item" th:href="@{login}">로그인</a>
+				</th:block>
+			</ul>
+		</li>
+	</ul>
+</nav>
+</html>

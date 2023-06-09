@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.co.kr.mapper.ItemMapper">
+
+	<insert id="bookItemCreate" parameterType="com.co.kr.domain.ItemDomain" useGeneratedKeys="true" keyProperty="bkId" keyColumn="bk_id">
+		insert into booklib.book_list (book_title, genre_id, book_stock, book_price, shop_id, book_author, book_publish, content, mb_id)
+	    values (#{bkTitle}, #{genreId}, #{bkStock}, #{bkPrice}, #{shopId}, #{bkAuthor}, #{bkPublish}, #{bkContent}, #{mbId})
+	</insert>
+
+	<!-- Main 페이지를 한 번에 출력 할 용도로 사용 -->
+	<select id="bookViewMain" resultType="com.co.kr.domain.ItemMainDomain" parameterType="map">
+		select b.book_id, b.book_title, b.book_price, c.bk_new_file_name, g.genre_name, s.shop_name
+		from booklib.book_list as b, booklib.book_cover as c, booklib.genre as g, booklib.shop as s
+		where b.book_id = c.bk_id and b.genre_id = g.genre_id and b.shop_id = s.shop_id
+		AND <![CDATA[ b.book_id <= #{last_id}]]>
+		order by b.book_id desc limit #{contentnum}
+	</select>
+	
+	<select id="bookSearchMain" resultType="com.co.kr.domain.ItemMainDomain" parameterType="map">
+		select b.book_id, b.book_title, b.book_price, c.bk_new_file_name, g.genre_name, s.shop_name
+		from booklib.book_list as b, booklib.book_cover as c, booklib.genre as g, booklib.shop as s
+		where b.book_id = c.bk_id and b.genre_id = g.genre_id and b.shop_id = s.shop_id
+		and b.book_title like concat('%', #{keyWord}, '%')
+		AND <![CDATA[ b.book_id <= #{last_id}]]>
+		order by b.book_id desc limit #{contentnum}
+	</select>
+	
+	<!-- select all -->
+	<select id="bookItemList" resultType="com.co.kr.domain.ItemViewDomain">
+		select b.book_id, b.book_title, g.genre_name, b.book_stock, b.book_price, s.shop_name, b.book_author, b.book_publish, content, mb_id
+		from booklib.book_list as b, booklib.genre as g, booklib.shop as s
+		where b.genre_id = g.genre_id and b.shop_id = s.shop_id
+		order by b.book_id asc
+	</select>
+	
+	
+	<select id="bookMyList" resultType="com.co.kr.domain.ItemViewDomain" parameterType="map">
+		select b.book_id, b.book_title, g.genre_name, b.book_stock, b.book_price, s.shop_name, b.book_author, b.book_publish, content, mb_id
+		from booklib.book_list as b, booklib.genre as g, booklib.shop as s
+		where b.genre_id = g.genre_id and b.shop_id = s.shop_id and b.mb_id = #{mbId}
+		order by b.book_id asc
+	</select>
+	
+	<select id="bookViewMaxKey" resultType="String">
+		SELECT MAX(book_id) FROM booklib.book_list;
+	</select>
+	
+
+	
+	<!-- select one id로 view용-->
+	<select id="bookItemOne" resultType="com.co.kr.domain.ItemViewDomain" parameterType="map">
+		select b.book_id, b.book_title, g.genre_name, b.book_stock, b.book_price, s.shop_name, b.book_author, b.book_publish, content, mb_id
+		from booklib.book_list as b, booklib.genre as g, booklib.shop as s
+		where b.genre_id = g.genre_id and b.shop_id = s.shop_id and book_id = #{bkId}
+		order by b.book_id asc
+	</select>
+	
+		<!-- select one id로 edit용 -->
+	<select id="bookItemIdOne" resultType="com.co.kr.domain.ItemDomain" parameterType="map">
+		select b.book_id, b.book_title, b.genre_id, b.book_stock, b.book_price, b.shop_id, b.book_author, b.book_publish, content, mb_id
+		from booklib.book_list as b
+		where book_id = #{bkId}
+		order by b.book_id asc
+	</select>
+	
+
+	<update id="bookItemUpdate" parameterType="com.co.kr.domain.ItemDomain" useGeneratedKeys="true" keyProperty="bkId" keyColumn="bk_id">
+		UPDATE booklib.book_list SET
+				book_title=#{bkTitle},
+				genre_id=#{genreId},
+				book_stock=#{bkStock},
+				book_price=#{bkPrice},
+				shop_id=#{shopId},
+				book_author=#{bkAuthor},
+				book_publish=#{bkPublish},
+				content=#{bkContent},
+				mb_id=#{mbId}
+	    WHERE book_id=#{bkId}
+	</update>
+	
+	<delete id="bookItemRemove" parameterType="hashMap">
+	   DELETE FROM booklib.book_list WHERE book_id=#{bkId}
+	</delete>
+
+</mapper>

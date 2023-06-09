@@ -1,0 +1,53 @@
+<div class="container-fluid px-4">
+	<h1 class="mt-4">관리자 회원 조회</h1>
+	<div class="card mb-4">
+		<div class="card-header">
+			<i class="fas fa-table me-1"></i>관리자 회원 조회 테이블
+		</div>
+		<div class="card-body">
+			<table id="usertables" class="cell-border compact">
+				<colgroup>
+                <col style="width: 4%"/>
+                <col style="width: 10%"/>
+                <col style="width: 5%"/>
+                <col style="width: 4%"/>
+                <col style="width: 4%"/>
+                <col style="width: 4%"/>
+                <col style="width: 7.5%"/>
+                <col style="width: 7.5%"/>
+                <col style="width: 7.5%"/>
+	            </colgroup>
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>아이디</th>
+						<th>패스워드</th>
+						<th>권한 레벨</th>
+						<th>접속 IP</th>
+						<th>사용 여부</th>
+						<th>생성 시기</th>
+						<th>변경 시기</th>
+						<th>수정</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${users}">
+						<td th:text="${user.mbSeq}"></td>
+						<!-- requestParams 대충 그런거 쓰면 되겠지. -->
+	                	<td th:text="${user.mbId}"></td>
+	                	<td th:text="${user.mbPw}"></td>
+	                	<td th:text="${user.mbLevel}"></td>
+	                	<td th:text="${user.mbIp}"></td>
+	                	<td th:text="${user.mbUse}"></td>
+	                	<td th:text="${user.mbCreateAt}"></td>
+	                	<td th:text="${user.mbUpdateAt}"></td>
+	                	<td style="text-align: center;">
+	                	<button class="btn btn-primary" th:text="수정하기" th:onclick="|location.href='@{/adminEdit(mbSeq = ${user.mbSeq})}'|"></button>
+	                	<button class="btn btn-primary" th:text="삭제하기" th:onclick="|location.href='@{/adminRemove(mbSeq = ${user.mbSeq})}'|"></button>
+	                	</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.co.kr.mapper.ShopMapper">
+	<insert id="shopItemCreate" parameterType="com.co.kr.domain.ItemShopDomain">
+		insert into booklib.shop (shop_id, shop_name)
+		values (#{shopId}, #{shopName})
+	</insert>
+	
+	<!-- select문 생성 할 때 -->
+	<select id="shopItems" resultType="com.co.kr.domain.ItemShopDomain">
+		select shop_id, shop_name
+		from booklib.shop
+		order by shop_id asc
+	</select>
+	
+	<!-- selected 된 값 체크 할 때 -->
+	<select id="shopItemOne" resultType="com.co.kr.domain.ItemShopDomain" parameterType="hashMap">
+		select shop_id, shop_name
+		from booklib.shop
+		where shop_id = #{shopId}
+	</select>
+	
+	<update id="shopItemUpdate" parameterType="com.co.kr.domain.ItemShopDomain">
+		UPDATE booklib.shop SET
+				shop_id=#{shopId},
+				shop_name=#{shopName}
+	    WHERE shopId=#{shopId}
+	</update>
+	
+	<delete id="shopItemRemove" parameterType="hashMap">
+	   DELETE FROM booklib.shop WHERE shop_id=#{shopId}
+	</delete>
+	
+</mapper>

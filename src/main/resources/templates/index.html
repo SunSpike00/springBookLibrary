@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+</th:block>
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:inline="javascript">
+	
+	history.pushState(null, null, location.href);
+	window.onpopstate = function() {
+		history.go(1);
+	}
+    
+    $(document).ready(function () {    	
+	      	// 1번만 값 돌리게 하기. 이후에는 조건문 안에서 변수 값 세팅.
+	    	/*<![CDATA[*/
+	    	var items = /*[[${bookList}]]*/ + ""
+	    	/*]]>*/
+	    	var last = {
+	    			"bkId": items[items.length - 1].bkId.toString(),
+	    			"code": "index"
+	    	};
+	    	
+    	  $(document).scroll(function() {
+    	    var maxHeight = $(document).height();
+    	    var currentScroll = $(window).scrollTop() + $(window).height();
+			// 스크롤 70% 지점에서 발생함. 비동기 통신 실행 후 다음 id 값 세팅 다시.
+    	    if (maxHeight <= currentScroll + 100) {
+    	    	if(items) {
+    	    		$.ajax({
+    	    			async : false,
+        		        type: "post",
+        	    	    url: "bookajax",
+        	    	    data: last,
+        	    	    success: function(data){
+        	    	    	
+        	    	  		items = data.items;
+        	    	  		
+        	    	  		if(items){
+            	    	  		let div = '';
+        	    	  			for(var i=0; i< items.length; i++) {
+            	    	        	div = document.createElement('div');
+            	    	        	div.className = 'col mb-5';
+            	    	        	div.innerHTML = `
+            	    	    			<div class="card h-100">
+            	    	    				<img style="width: auto; height: auto; max-width: 300px; max-height: 450px; object-fit: contain; overflow: hidden;"
+            	    	    				src= ${items[i].bkNewFileName} alt="도서 표지" />
+            	    	    				<!-- Product details-->
+            	    	    				<div class="card-body p-6">
+            	    	    					<div class="text-center">
+            	    	    						<!-- Product name-->
+            	    	    						<h5 class="fw-bolder">${items[i].bkTitle}</h5>
+            	    	    						<!-- Product price-->
+            	    	    						<div>${items[i].bkPrice + "원"}</div>
+            	    	    						<div>
+            	    								<!-- 장르 태그-->
+            	    								<a class="badge bg-secondary text-decoration-none link-light">${items[i].genreName}</a>
+            	    								<!-- 매장 태그-->
+            	    								<a class="badge bg-secondary text-decoration-none link-light">${items[i].shopName}</a>
+            	    								</div>
+            	    	    					</div>
+            	    	    				</div>
+            	    	    	            <!-- Product actions-->
+            	    	    				<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            	    	    					<div class="text-center"><a class="btn btn-outline-dark mt-auto" href= ${document.location.pathname + "bookInfo?bkId=" + items[i].bkId} >View options</a></div>
+            	    	    				</div>
+            	    	    			</div>
+            	    	    		`;
+                	    			document.querySelector('#page').appendChild(div);
+            	    	  		}
+            	    			last = {
+            	    					"bkId": items[items.length - 1].bkId.toString(),
+            	    					"code": "index"
+            	    			};
+        	    	  		}
+        	    	    },
+        	    	    error: function(data){ // ajax실패시 원인
+        	    	      console.log("오류 발생.");
+        	    	 	  console.log(data);
+        	    	    }
+        			})
+    	    	}
+    	    }
+    	  })
+    });
+    </script>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="container">
+        <th:block th:include="bookStore/list.html"></th:block>
+    </div>
+</div>
+</html>

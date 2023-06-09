@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.co.kr.mapper.ItemFileMapper">
+
+	<!-- key 값을 Domain에서 바로 뽑아 쓸려고 작성 -->
+	<insert id="itemCoverFileUpload" parameterType="com.co.kr.domain.ItemFileDomain">
+    
+    insert into booklib.book_cover (bk_id, mb_id, bk_original_file_name, bk_new_file_name, bk_file_path, bk_file_size)
+    values (#{bkId}, #{mbId}, #{bkOriginalFileName}, #{bkNewFileName}, #{bkFilePath}, #{bkFileSize})
+
+    </insert>
+    
+    <update id="itemCoverFileUpdate" parameterType="com.co.kr.domain.ItemFileDomain">
+    
+    update booklib.book_cover set
+    	bk_id = #{bkId}, 
+    	mb_id = #{mbId},
+    	bk_original_file_name = #{bkOriginalFileName},
+    	bk_new_file_name = #{bkNewFileName}, 
+    	bk_file_path = #{bkFilePath}, 
+    	bk_file_size = #{bkFileSize}, 
+    where bk_id = #{bkId}
+    
+    </update>
+    
+	<delete id="itemCoverFileRemove" parameterType="com.co.kr.domain.ItemFileDomain">
+	   	delete from booklib.book_cover
+	    where bk_new_file_name = #{bkNewFileName}
+	</delete>
+
+	<insert id="itemFilesUpload" parameterType="com.co.kr.domain.ItemFileDomain">
+    insert into booklib.book_files (bk_id, mb_id, bk_original_file_name, bk_new_file_name, bk_file_path, bk_file_size)
+    values (#{bkId}, #{mbId}, #{bkOriginalFileName}, #{bkNewFileName}, #{bkFilePath}, #{bkFileSize})
+    </insert>
+	
+    <update id="itemFilesUpdate" parameterType="com.co.kr.domain.ItemFileDomain">
+    
+        update booklib.book_files set
+	    	bk_id = #{bkId}, 
+	    	mb_id = #{mbId},
+	    	bk_original_file_name = #{bkOriginalFileName},
+	    	bk_new_file_name = #{bkNewFileName}, 
+	    	bk_file_path = #{bkFilePath}, 
+	    	bk_file_size = #{bkFileSize}
+	    where bk_id = #{bkId}
+    	
+    </update>
+    
+	<delete id="itemFilesRemove" parameterType="com.co.kr.domain.ItemFileDomain">
+	   	delete from booklib.book_files
+	    where bk_new_file_name = #{bkNewFileName}
+	</delete>
+    
+    
+	<!-- Cover files -->
+	<select id="itemCoverFilesCall" resultType="com.co.kr.domain.ItemFileDomain">
+	    SELECT bk_id, mb_id, bk_original_file_name, bk_new_file_name, bk_file_path, bk_file_size
+	    FROM booklib.book_cover
+	    order by file_id asc
+	</select>
+	
+	<!-- Cover file one -->
+	<select id="itemCoverFileOneCall" resultType="com.co.kr.domain.ItemFileDomain" parameterType="map">
+	    SELECT bk_id, mb_id, bk_original_file_name, bk_new_file_name, bk_file_path, bk_file_size
+	    from booklib.book_cover where bk_id = #{bkId}
+	</select>
+
+	<!-- book files -->
+	<select id="itemFilesCall" resultType="com.co.kr.domain.ItemFileDomain" parameterType="map">
+	    SELECT bk_id, mb_id, bk_original_file_name, bk_new_file_name, bk_file_path, bk_file_size
+	    FROM booklib.book_files where bk_id = #{bkId}
+	    order by file_id asc
+	</select>
+
+</mapper>

@@ -1,0 +1,59 @@
+<div class="container-fluid px-4">
+	<h1 class="mt-4">내 서재</h1>
+	<div class="card mb-4">
+		<div class="card-header">
+			<i class="fas fa-table me-1"></i>내 서재 테이블
+		</div>
+		<div class="card-body">
+			<table id="usertables" class="cell-border compact" style="table-layout: fixed">
+				<colgroup>
+                <col style="width: 5%"/> <!-- 도서번호 -->
+                <col style="width: 8%"/> <!-- 도서제목 -->
+                <col style="width: 5%"/> <!-- 도서장르 -->
+                <col style="width: 5%"/> <!-- 도서재고 -->
+                <col style="width: 5%"/> <!-- 도서가격 -->
+                <col style="width: 5%"/> <!-- 도서매장 -->
+                <col style="width: 5%"/> <!-- 도서저자 -->
+                <col style="width: 5%"/> <!-- 출판사 -->
+                <col style="width: 5%"/> <!-- 작성자 --> 
+                <col style="width: 5%"/> <!-- 내용 -->
+                <col style="width: 7.5%"/> <!-- 수정 -->
+	            </colgroup>
+				<thead>
+					<tr>
+						<th>도서번호</th>
+						<th>도서제목</th>
+						<th>도서장르</th>
+						<th>도서재고</th>
+						<th>도서가격</th>
+						<th>판매매장</th>
+						<th>도서저자</th>
+						<th>출판사</th>
+						<th>작성자</th>
+						<th>내용</th>
+						<th>수정</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item : ${items}">
+						<td th:text="${item.bkId}"></td>
+	                	<td style="white-space : nowrap; text-overflow:ellipsis; overflow:hidden">
+	                	<a th:text="${item.bkTitle}" th:href="@{/bookInfo(bkId = ${item.bkId})}"></a></td>
+	                	<td th:text="${item.genreName}"></td>
+	                	<td th:text="${item.bkStock}"></td>
+	                	<td th:text="${item.bkPrice}"></td>
+	                	<td th:text="${item.shopName}"></td>
+	                	<td th:text="${item.bkAuthor}"></td>
+	                	<td th:text="${item.bkPublish}"></td>
+	                	<td th:text="${item.mbId}"></td>
+	                	<td style="white-space : nowrap; text-overflow:ellipsis; overflow:hidden" th:text="${item.bkContent}"></td>
+	                	<td style="text-align: center;">
+	                	<button class="btn btn-primary" th:text="수정하기" th:onclick="|location.href='@{/bookEdit(bkId = ${item.bkId})}'|"></button>
+	                	<button class="btn btn-primary" th:text="삭제하기" th:onclick="|location.href='@{/bookRemove(bkId = ${item.bkId})}'|"></button>
+	                	</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

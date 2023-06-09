@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+</th:block>
+<th:block layout:fragment="script">
+	<script type="text/javascript">
+		history.pushState(null, null, location.href);
+		window.onpopstate = function() {
+			history.go(1);
+		}
+	</script>
+</th:block>
+<div layout:fragment="content">
+	<div class="row justify-content-center">
+		<div class="col-lg-5">
+			<div class="card shadow-lg border-0 rounded-lg mt-5">
+				<div class="card-header">
+					<h3 class="text-center font-weight-light my-4">Admin UserRegister</h3>
+				</div>
+				<div class="card-body">
+					<form id="registerForm" role="form" action="adminRegister" method="post">
+						<div class="form-floating mb-3">
+							<input class="form-control" name="id" id="id" type="text"
+								placeholder="Id" required /> <label for="id">Id</label>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<div class="form-floating mb-3 mb-md-0">
+									<input class="form-control" name="pw" id="pw" type="password"
+										placeholder="Create a password" /> <label for="pw">Password</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-floating mb-3 mb-md-0">
+									<input class="form-control" name="pwCheck" id="pwCheck"
+										type="password" placeholder="Confirm password" /> <label
+										for="pwCheck">Confirm Password</label>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex align-items-center">
+							<button class="btn btn-custom" type="submit" id="submit">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

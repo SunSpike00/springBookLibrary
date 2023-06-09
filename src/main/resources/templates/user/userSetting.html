@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css"></th:block>
+<th:block layout:fragment="script">
+    <script type="text/javascript">    
+    function delOk(){
+        if(confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+        	const seq = document.getElementById("seq").value;
+            return location.href=window.location.href + "/userDelete/" + seq;
+        } else {
+        	return location.href=window.location.href
+        }
+    }
+    </script>
+</th:block>
+<div layout:fragment="content">
+	<div class="row justify-content-center">
+		<div class="col-lg-5">
+			<div class="card shadow-lg border-0 rounded-lg mt-5">
+				<div class="card-header">
+					<h3 class="text-center font-weight-light my-4">User
+						Information Update</h3>
+				</div>
+				<div class="card-body">
+					<form id="registerForm" role="form" action="userUpdate" method="post">
+						<div class="form-floating mb-3">
+							<input class="form-control" name="seq" id="seq" type="hidden"
+								placeholder="Id" th:value=${userinfo.mbSeq} th:readonly="true" />
+							<label for="id">Id</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="level" id="level" type="hidden"
+								placeholder="Id" th:value=${userinfo.mbLevel} th:readonly="true" />
+							<label for="id">Id</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="id" id="id" type="text"
+								placeholder="Id" th:value=${userinfo.mbId} th:readonly="true" />
+							<label for="id">Id</label>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<div class="form-floating mb-3 mb-md-0">
+									<input class="form-control" name="pw" id="pw" type="password"
+										placeholder="Create a password" /> <label for="pw">Password</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-floating mb-3 mb-md-0">
+									<input class="form-control" name="pwCheck" id="pwCheck"
+										type="password" placeholder="Confirm password" /> <label
+										for="pwCheck">Confirm Password</label>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex align-items-center">
+							<button class="btn btn-custom" type="submit" id="submit">Update</button>
+						</div>
+					</form>
+				</div>
+				<div class="card-footer text-center py-3">
+					<button class="btn btn-primary" type="button" th:onclick="delOk()">Delete
+						this account</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

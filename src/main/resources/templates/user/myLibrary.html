@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+<!-- 추후 사이즈 및 스타일 동일화 할 것. -->
+<style>
+	/* 버튼 스타일 설정 */
+	button.dt-button, div.dt-button, a.dt-button, input.dt-button {
+		border: 1px;
+	    border-radius: 2px;
+	    text-align: right !important;
+	    float: right !important;
+	}
+	
+	/* 필터링 (검색) */
+	div.dataTables_filter {
+		border-radius: 2px;
+		text-align : left !important;
+		float: left !important;
+	}
+	
+	/* 표시 건수수 설정 */
+	div.dataTables_length {
+		text-align : right !important;
+	}
+</style>
+</th:block>
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:inline="javascript">
+	
+		history.pushState(null, null, location.href);
+		window.onpopstate = function() {
+			history.go(1);
+		}
+		
+        jQuery(function($){		
+            $("#usertables").DataTable({
+            	stateSave: true,
+            	//lfrtip
+			    dom: 'Bfrtip',
+		        buttons: [
+		            {
+		                text: '도서 등록하기',
+		                action: function ( e, dt, node, config ) {
+		                	return location.href="/bookCreate";
+		                }
+		            }
+		        ],
+            	"language": {
+            	        "emptyTable": "데이터가 없어요.",
+            	        "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+            	        "info": "현재 _START_ - _END_ / _TOTAL_건",
+            	        "infoEmpty": "데이터 없음",
+            	        "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+            	        "search": "검색: ",
+            	        "zeroRecords": "일치하는 데이터가 없어요.",
+            	        "loadingRecords": "로딩중...",
+            	        "processing":     "잠시만 기다려 주세요...",
+            	        "paginate": {
+            	            previous: '<span class="icon md-chevron-left">이전</span>',
+            	            next: '<span class="icon md-chevron-left">다음</span>'
+            		}
+           		},
+            });
+        });
+	</script>
+</th:block>
+<div layout:fragment="content">
+	<th:block th:include="user/myList.html"></th:block>
+</div>
+</html>

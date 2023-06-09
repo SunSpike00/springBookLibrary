@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+<style>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+</style>
+</th:block>
+<th:block layout:fragment="script">
+	<script type="text/javascript">
+	
+	function maxLengthCheck(object){
+		    if (object.value.length > object.maxLength){
+		      object.value = object.value.slice(0, object.maxLength);
+	   }    
+	}
+	
+	window.onload = function() {
+		const DEFAULT_HEIGHT = 2;
+		const MAX_HEIGHT = 500;
+		
+		const $textarea = document.querySelector('#bkContent');
+		$textarea.style.overflow = 'hidden';
+		
+		$textarea.oninput = (event) => {
+		  const $target = event.target;
+		  
+		  if ($target.scrollHeight > MAX_HEIGHT) {
+			$target.style.overflow = 'auto';
+		  } else {
+		  	$target.style.overflow = 'hidden';
+		  }
+		  
+		  $target.style.height = 0;
+		  $target.style.height = Math.min(DEFAULT_HEIGHT + $target.scrollHeight, MAX_HEIGHT) + 'px';
+		};
+	}
+	</script>
+</th:block>
+<div layout:fragment="content">
+	<div class="row justify-content-center">
+		<div class="col-lg-5">
+			<div class="card shadow-lg border-0 rounded-lg mt-5">
+				<div class="card-header">
+					<h3 class="text-center font-weight-light my-4">Book Create</h3>
+				</div>
+				<div class="card-body">
+					<form id="registerForm" role="form" action="bookRegister" method="post" enctype="multipart/form-data">
+						<div class="form-floating mb-3">
+							<input class="form-control" name="bkTitle" id="bkTitle" type="text" maxlength="28"
+								placeholder="bkTitle" required /> <label for="bkTitle">도서 제목</label>
+						</div>
+						<div class="form-floating mb-3">
+							도서 장르 : 
+		            	    <select class="form-control-custom" name="genreId" id="genreId">
+			                    <option
+			                    th:each="genreSelect : ${genre}"
+			                    th:text="${genreSelect.genreName}"
+			                    th:value="${genreSelect.genreId}">
+			                    </option>
+		                    </select>
+	                    </div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="bkStock" id="bkStock" type="number" maxlength="7"
+								placeholder="bkStock" oninput="maxLengthCheck(this)" required /> <label for="bkStock">도서 재고</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="bkPrice" id="bkPrice" type="number" maxlength="7"
+								placeholder="bkPrice" oninput="maxLengthCheck(this)" required /> <label for="bkPrice">도서 가격</label>
+						</div>
+						<div class="form-floating mb-3">
+							판매 매장 : 
+		            	    <select class="form-control-custom" name="shopId" id="shopId">
+			                    <option
+			                    th:each="shopSelect : ${shop}"
+			                    th:text="${shopSelect.shopName}"
+			                    th:value="${shopSelect.shopId}">
+			                    </option>
+		                    </select>
+	                    </div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="bkAuthor" id="bkAuthor" type="text" maxlength="9"
+								placeholder="bkAuthor" required /> <label for="bkAuthor">도서 저자</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" name="bkPublish" id="bkPublish" type="text" maxlength="9"
+								placeholder="bkPublish" required /> <label for="bkPublish">출판사</label>
+						</div>
+						<div class="form-floating mb-3">
+							<textarea style="resize: none;" class="form-control" name="bkContent" id="bkContent"
+							 placeholder="내용을 적어주세요." required></textarea>
+							<label for="bkContent">도서 설명</label>
+						</div>
+						<div class="form-floating mb-3">
+							상품 표지 첨부파일(필수) : 
+	                    	<input type="file" id="bookCover" name="bookCover" required/>
+                    	</div>
+                    	<div class="form-floating mb-3">
+                    		상세 이미지 첨부파일 :
+	                    	<input type="file" id="bookFile" name="bookFile" multiple required/>
+                    	</div>
+                    	<div class="d-flex align-items-center">
+							<button class="btn btn-custom" type="submit" id="submit">상품 등록</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

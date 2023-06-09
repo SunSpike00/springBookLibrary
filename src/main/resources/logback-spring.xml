@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
+    <!-- 날짜, 시간, 스레드 이름, 로그 레벨(info, warn...), 로깅 발생 카테고리, 로깅 발생 메소드 명, 로깅 발생 호출 라인, 로그 메세지 -->
+    <property name="LOG_PATTERN"
+    value="[%d{yyyy-MM-dd HH:mm:ss:SS}] %green([%thread]) %highlight(%-5level) [%C.%M:%yellow(%L)] - %msg%n"/>
+
+    <!-- 콘솔로 로그를 남김 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    
+    	<!-- Info 레벨일 경우 console 로그에 출력(accept), 아니면 출력하지 않음(deny)  -->
+        <filter class = "ch.qos.logback.classic.filter.LevelFilter">
+	        <level>INFO</level>
+	        <onMatch>ACCEPT</onMatch>
+	        <onMismatch>DENY</onMismatch>
+        </filter>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+    </appender>
+         
+	<!-- 파일로 로그를 남김 -->
+	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./log/${BY_DATE}-log.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!-- %logger{5} Logger name을 축약할 수 있음  -->
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss:SS} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</encoder>
+		<!-- 로그를 남기는 파일의 용량이 10KB가 넘으면 이를 압축 파일로 만들고 새로 로그 파일로 만들라는 정책 -->
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10KB</MaxFileSize>
+		</triggeringPolicy>
+		
+		<!-- 이때 발생하는 파일을 덮어쓰는 정책 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>./log/${BY_DATE}-%i-log.zip</FileNamePattern>
+ 			<!-- 인덱스 순으로 1번부터 10번까지 차례로 파일 명이 정해짐. 만약 10을 초과하면 1부터 다시 시작한다. -->
+			<MinIndex>1</MinIndex>
+			<MaxIndex>10</MaxIndex>
+ 		</rollingPolicy>
+	</appender>
+
+    <!-- com.co.kr 아래 패키지 내용 로그 찍음-->
+    <!-- additivity 값을 false 로 주면 부모 로거(root)로의 전달을 막음. (default 값은 true) -->
+    <logger name="com.co.kr" additivity="false">
+    	<!-- 안 넣으면 com.co.kr이 안나옴. -->
+       	<appender-ref ref="CONSOLE"/>
+    	<appender-ref ref="fileAppender" />
+    </logger>
+         
+    <!-- root는 글로벌 로거-->
+    <root level="info">
+    	<appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
